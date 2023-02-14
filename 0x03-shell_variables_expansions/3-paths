@@ -1,2 +1,2 @@
-chmod u+x 2-path
-echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin | tr : n | wc -l
+#!/bin/bash
+echo $((`echo $PATH | grep -o ":/" | wc -l`+ 1))
