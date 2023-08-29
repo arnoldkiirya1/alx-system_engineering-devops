@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# This script configures Nginx for a permanent redirection
+
+# Create a new configuration file for the redirection
+echo "server {
+    listen 80;
+    server_name _;
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}" > /etc/nginx/sites-available/redirect
+
+# Create a symbolic link to enable the new configuration
+ln -s /etc/nginx/sites-available/redirect /etc/nginx/sites-enabled/
+
+# Reload nginx configuration
+service nginx reload
+

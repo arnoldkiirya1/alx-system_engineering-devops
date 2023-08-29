@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# This script transfers a file from a client to a server using scp
+
+# Check if at least 4 parameters are provided
+if [ "$#" -lt 4 ]; then
+    echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+    exit 1
+fi
+
+# Extract parameters
+path_to_file="$1"
+ip="$2"
+username="$3"
+path_to_ssh_key="$4"
+
+# Disable strict host key checking for scp
+scp_cmd="scp -o StrictHostKeyChecking=no -i $path_to_ssh_key $path_to_file $username@$ip:~/"
+
+# Transfer the file using scp
+$scp_cmd
+
+# Check if scp was successful
+if [ "$?" -eq 0 ]; then
+    echo "File transferred successfully to $ip"
+else
+    echo "File transfer failed"
+fi
+
