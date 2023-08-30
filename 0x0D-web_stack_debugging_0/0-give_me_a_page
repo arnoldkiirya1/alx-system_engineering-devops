@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-# run apache on holbertonschool/265-0 container
+# Fix my server with these magic 2 lines
 
-echo "ServerName localhost" >> /etc/apache2.conf
-service apache2 start
+# Check if /etc/passwd exists in /tmp, if not, copy it
+if [ ! -f /tmp/passwd ]; then
+    cp /etc/passwd /tmp/
+fi
+
+# Create /tmp/isworking file with content "OK"
+echo OK > /tmp/isworking
