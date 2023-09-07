@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ "$#" -eq 1 ]; then
+    subdomains=("www" "lb-01" "web-01" "web-02")
+    domain="$1"
+else
+    subdomains=("$2")
+    domain="$1"
+fi
+
+for subdomain in "${subdomains[@]}"; do
+    record_type=$(dig "$subdomain.$domain" +short)
+    destination=$(dig "$subdomain.$domain" +short)
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
+done

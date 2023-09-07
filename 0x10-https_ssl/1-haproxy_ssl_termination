@@ -1,0 +1,25 @@
+# Global settings
+global
+    daemon
+    maxconn 256
+
+# Default SSL material locations
+ssl-default-bind-ciphers PROFILE=SYSTEM
+ssl-default-bind-options no-sslv3 no-tlsv10
+
+# Default certificate to use for SSL
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend ssl_frontend
+    bind *:443 ssl crt /etc/ssl/certs/my_cert.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend web_backend
+
+backend web_backend
+    server web-server-1 web-01:80 check
+    server web-server-2 web-02:80 check
+

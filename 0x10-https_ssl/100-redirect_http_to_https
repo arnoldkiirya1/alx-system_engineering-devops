@@ -1,0 +1,20 @@
+# Global settings
+global
+    daemon
+    maxconn 256
+
+# Default SSL material locations
+ssl-default-bind-ciphers PROFILE=SYSTEM
+ssl-default-bind-options no-sslv3 no-tlsv10
+
+# Default certificate to use for SSL
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http_frontend
+    bind *:80
+    mode http
+    redirect scheme https code 301 if !{ ssl_fc }
