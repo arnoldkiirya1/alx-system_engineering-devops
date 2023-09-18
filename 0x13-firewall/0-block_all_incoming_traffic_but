@@ -1,0 +1,18 @@
+# Install ufw
+apt-get install ufw
+
+# Enable IPv6 support in ufw
+sed -i 's/IPV6=.*/IPV6=yes/' /etc/default/ufw
+
+# Disable ufw 
+ufw disable
+
+# Enable ufw with the default deny incoming policy
+ufw enable
+ufw default deny incoming
+ufw default allow outgoing
+
+# Allow incoming traffic on specific ports
+ufw allow 22/tcp
+ufw allow 443/tcp
+ufw allow 80/tcp
