@@ -1,4 +1,8 @@
-exec { 'fix-wordpress':
-  command => '/bin/sed -i s/phpp/php/g /var/www/html/wp-settings.php',
-  path    => '/usr/local/bin/:/bin/'
+# Script that fixes th error Apache is returning a 500 error
+
+$config_file = '/var/www/html/wp-settings.php'
+
+exec { 'edit_file':
+  command => "sed -i 's/phpp/php/g' ${config_file}",
+  path    => ['/bin','/usr/bin']
 }
